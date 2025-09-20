@@ -1,23 +1,26 @@
 package school.sptech.prova_ac1;
 
-
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+
+import java.time.LocalDate;
 
 @Entity
 public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
     private String nome;
     private String email;
     private String cpf;
     private String senha;
-    private String dataNascimento;
+    private LocalDate dataNascimento;
 
     public Usuario(){}
 
-    public Usuario(String nome, String email, String cpf, String senha, String dataNascimento) {
+    public Usuario(String nome, String email, String cpf, String senha, LocalDate dataNascimento) {
         this.nome = nome;
         this.email = email;
         this.cpf = cpf;
@@ -57,11 +60,11 @@ public class Usuario {
         this.senha = senha;
     }
 
-    public String getDataNascimento() {
+    public LocalDate getDataNascimento() {
         return dataNascimento;
     }
 
-    public void setDataNascimento(String dataNascimento) {
+    public void setDataNascimento(LocalDate dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
 }

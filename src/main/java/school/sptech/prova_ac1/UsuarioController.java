@@ -1,11 +1,10 @@
 package school.sptech.prova_ac1;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -20,22 +19,35 @@ public class UsuarioController {
     @PostMapping
     public ResponseEntity<Usuario> criar(@RequestBody Usuario usuario) {
         Usuario novo_usuario = repository.save(usuario);
-        return ResponseEntity.internalServerError().build();
+        return ResponseEntity.ok(novo_usuario);
     }
 
+    @GetMapping
     public ResponseEntity<List<Usuario>> buscarTodos() {
-        return ResponseEntity.internalServerError().build();
+        return ResponseEntity.ok(repository.findAll());
+    }
+    
+    @GetMapping("/{id}")
+    public ResponseEntity<Usuario> buscarPorId(@PathVariable Integer id) {
+        return ResponseEntity.ok(repository.findAll().get(id));
+    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletar(@PathVariable Integer id) {
+        Usuario removido = repository.findAll().get(id);
+        repository.delete(removido);
+        return ResponseEntity.ok().build();
     }
 
-    public ResponseEntity<Usuario> buscarPorId(Integer id) {
-        return ResponseEntity.internalServerError().build();
-    }
+    @GetMapping("/{nascimento}")
+    public ResponseEntity<List<Usuario>> buscarPorDataNascimento(@PathVariable LocalDate nascimento) {
 
-    public ResponseEntity<Void> deletar(Integer id) {
-        return ResponseEntity.internalServerError().build();
-    }
-
-    public ResponseEntity<List<Usuario>> buscarPorDataNascimento(LocalDate nascimento) {
+        List<Usuario> usuarios = repository.findAll();
+        List<Usuario> user_nascimento = new ArrayList<>();
+        for (Usuario usuario : usuarios) {
+            if (usuario.getDataNascimento().equals(nascimento)){
+                user_nascimento.add(usuario);
+            }
+        }
         return ResponseEntity.internalServerError().build();
     }
 
