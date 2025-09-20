@@ -20,12 +20,21 @@ public class Usuario {
 
     public Usuario(){}
 
-    public Usuario(String nome, String email, String cpf, String senha, LocalDate dataNascimento) {
+    public Usuario(Integer id, String nome, String email, String cpf, String senha, LocalDate dataNascimento) {
+        this.id = id;
         this.nome = nome;
         this.email = email;
         this.cpf = cpf;
         this.senha = senha;
         this.dataNascimento = dataNascimento;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getNome() {
